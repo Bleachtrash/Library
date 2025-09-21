@@ -1,6 +1,11 @@
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * @author Peter Gloag
+ * @since 09/21/2025
+ */
+
 public class Book {
     public static  int ISBN_ = 0;
     public static int TITLE_ = 1;
@@ -73,8 +78,7 @@ public class Book {
         this.title = title;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return title + " by " + author + " ISBN: " + isbn;
     }
 

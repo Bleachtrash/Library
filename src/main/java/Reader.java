@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 public class Reader {
     public static int CARD_NUMBER_;
@@ -11,4 +12,48 @@ public class Reader {
     private String name;
     private String phone;
     private List<Book> books;
+
+    public int getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(int cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Reader reader = (Reader) o;
+        return cardNumber == reader.cardNumber && Objects.equals(name, reader.name) && Objects.equals(phone, reader.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardNumber, name, phone);
+    }
 }

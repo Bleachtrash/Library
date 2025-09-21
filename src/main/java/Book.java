@@ -64,6 +64,11 @@ public class Book {
         this.title = title;
     }
 
+    public String toString()
+    {
+        return title + " by " + author + " ISBN: " + isbn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

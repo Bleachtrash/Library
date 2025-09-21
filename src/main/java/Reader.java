@@ -14,6 +14,12 @@ public class Reader {
     private String phone;
     private List<Book> books;
 
+    public Reader(int cardNumber, String name, String phone) {
+        this.cardNumber = cardNumber;
+        this.name = name;
+        this.phone = phone;
+    }
+
     public Code addBook(Book book) {
         if(hasBook(book))
         {

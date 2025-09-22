@@ -3,6 +3,11 @@ import java.util.List;
 import java.util.Objects;
 import Utilities.Code;
 
+/**
+ * @author Peter Gloag
+ * @since 09/21/2025
+ */
+
 public class Reader {
     public static int CARD_NUMBER_;
     public static int NAME_;
@@ -84,8 +89,7 @@ public class Reader {
         this.books = books;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return name + " (#" + cardNumber + ") has checked out {" + books.toString() + "}";
     }
 

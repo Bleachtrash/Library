@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import Utilities.Code;
@@ -18,6 +19,7 @@ public class Reader {
         this.cardNumber = cardNumber;
         this.name = name;
         this.phone = phone;
+        this.books = new ArrayList<Book>();
     }
 
     public Code addBook(Book book) {
@@ -39,6 +41,10 @@ public class Reader {
     }
 
     public boolean hasBook(Book book) {
+        if(book == null)
+        {
+            return false;
+        }
         return books.contains(book);
     }
 
@@ -76,6 +82,11 @@ public class Reader {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public String toString()
+    {
+        return name + " (#" + cardNumber + ") has checked out {" + books.toString() + "}";
     }
 
     @Override

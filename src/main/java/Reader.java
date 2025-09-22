@@ -9,11 +9,11 @@ import Utilities.Code;
  */
 
 public class Reader {
-    public static int CARD_NUMBER_;
-    public static int NAME_;
-    public static int PHONE_;
-    public static int BOOK_COUNT_;
-    public static int BOOK_START_;
+    public static int CARD_NUMBER_ = 0;
+    public static int NAME_ = 1;
+    public static int PHONE_ = 2;
+    public static int BOOK_COUNT_ = 3;
+    public static int BOOK_START_ = 4;
 
     private int cardNumber;
     private String name;

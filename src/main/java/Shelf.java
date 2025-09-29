@@ -5,7 +5,7 @@ public class Shelf {
     public static int SUBJECT_ = 1;
 
     private HashMap<Book, Integer> books;
+    private int shelfNumber;
     private String subject;
-
 
 }

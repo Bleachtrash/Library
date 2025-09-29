@@ -1,6 +1,7 @@
 import Utilities.Code;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Shelf {
@@ -23,21 +24,31 @@ public class Shelf {
         return books.size();
     }
 
-    public Code removeBook(Book book)
-    {
-        if(!books.containsKey(book))
-        {
+    public Code removeBook(Book book) {
+        if(!books.containsKey(book)) {
             System.out.println(book.getTitle() + " is not on the shelf " + subject);
             return Code.BOOK_NOT_IN_INVENTORY_ERROR;
         }
-        if(books.get(book) == 0)
-        {
+        if(books.get(book) == 0) {
             System.out.println("No copies of " + book.getTitle() + " remain on the shelf " + subject);
             return  Code.BOOK_NOT_IN_INVENTORY_ERROR;
         }
 
         books.put(book, books.get(book)-1);
         return Code.SUCCESS;
+    }
+
+    String listBooks() {
+        String out;
+        out += getBookCount() + " book";
+        if(getBookCount() != 1)
+            out += "s";
+        out += " on shelf: " + this.shelfNumber + " : " + this.subject + "\n";
+        for(Map.Entry<Book, Integer> entry : books.entrySet()) {
+            out += entry.getKey().toString() + " " + entry.getValue() + "\n";
+        }
+
+        return out;
     }
 
     public HashMap<Book, Integer> getBooks() {

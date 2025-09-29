@@ -11,14 +11,16 @@ public class Shelf {
     private int shelfNumber;
     private String subject;
 
-    public Code addBook(Book book)
-    {
-        if(book.getSubject() != this.subject)
-        {
+    public Code addBook(Book book) {
+        if(book.getSubject() != this.subject) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;
         }
         books.put(book, books.get(book) + 1);
         return Code.SUCCESS;
+    }
+
+    public int getBookCount() {
+        return books.size();
     }
 
     public HashMap<Book, Integer> getBooks() {

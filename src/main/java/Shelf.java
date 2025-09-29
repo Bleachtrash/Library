@@ -1,3 +1,5 @@
+import Utilities.Code;
+
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -8,6 +10,16 @@ public class Shelf {
     private HashMap<Book, Integer> books;
     private int shelfNumber;
     private String subject;
+
+    public Code addBook(Book book)
+    {
+        if(book.getSubject() != this.subject)
+        {
+            return Code.SHELF_SUBJECT_MISMATCH_ERROR;
+        }
+        books.put(book, books.get(book) + 1);
+        return Code.SUCCESS;
+    }
 
     public HashMap<Book, Integer> getBooks() {
         return books;

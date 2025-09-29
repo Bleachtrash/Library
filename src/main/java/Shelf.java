@@ -8,7 +8,7 @@ public class Shelf {
     public static int SHELF_NUMBER_ = 0;
     public static int SUBJECT_ = 1;
 
-    private HashMap<Book, Integer> books;
+    private HashMap<Book, Integer> books = new HashMap<>();
     private int shelfNumber;
     private String subject;
 
@@ -16,11 +16,20 @@ public class Shelf {
         if(book.getSubject() != subject) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;
         }
+        if(!books.containsKey(book))
+        {
+            books.put((book), 1);
+            return Code.SUCCESS;
+        }
         books.put(book, books.get(book) + 1);
         return Code.SUCCESS;
     }
 
     public int getBookCount(Book book) {
+        if(!books.containsKey(book))
+        {
+            return 0;
+        }
         return books.get(book);
     }
 

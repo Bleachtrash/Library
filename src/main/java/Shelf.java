@@ -20,8 +20,8 @@ public class Shelf {
         return Code.SUCCESS;
     }
 
-    public int getBookCount() {
-        return books.size();
+    public int getBookCount(Book book) {
+        return books.get(book);
     }
 
     public Code removeBook(Book book) {
@@ -40,8 +40,8 @@ public class Shelf {
 
     public String listBooks() {
         String out = "";
-        out += getBookCount() + " book";
-        if(getBookCount() != 1)
+        out += books.size() + " book";
+        if(books.size() != 1)
             out += "s";
         out += " on shelf: " + this.shelfNumber + " : " + this.subject + "\n";
         for(Map.Entry<Book, Integer> entry : books.entrySet()) {

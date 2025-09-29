@@ -38,8 +38,8 @@ public class Shelf {
         return Code.SUCCESS;
     }
 
-    String listBooks() {
-        String out;
+    public String listBooks() {
+        String out = "";
         out += getBookCount() + " book";
         if(getBookCount() != 1)
             out += "s";
@@ -49,6 +49,10 @@ public class Shelf {
         }
 
         return out;
+    }
+
+    public String toString() {
+        return shelfNumber + " : " + subject;
     }
 
     public HashMap<Book, Integer> getBooks() {

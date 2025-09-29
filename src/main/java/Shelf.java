@@ -12,7 +12,7 @@ public class Shelf {
     private String subject;
 
     public Code addBook(Book book) {
-        if(book.getSubject() != this.subject) {
+        if(book.getSubject() != subject) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;
         }
         books.put(book, books.get(book) + 1);
@@ -21,6 +21,23 @@ public class Shelf {
 
     public int getBookCount() {
         return books.size();
+    }
+
+    public Code removeBook(Book book)
+    {
+        if(!books.containsKey(book))
+        {
+            System.out.println(book.getTitle() + " is not on the shelf " + subject);
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+        if(books.get(book) == 0)
+        {
+            System.out.println("No copies of " + book.getTitle() + " remain on the shelf " + subject);
+            return  Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+
+        books.put(book, books.get(book)-1);
+        return Code.SUCCESS;
     }
 
     public HashMap<Book, Integer> getBooks() {

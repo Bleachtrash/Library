@@ -13,7 +13,7 @@ public class Shelf {
     private String subject;
 
     public Code addBook(Book book) {
-        if(book.getSubject() != subject) {
+        if(!book.getSubject().equals(subject)) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;
         }
         if(!books.containsKey(book))

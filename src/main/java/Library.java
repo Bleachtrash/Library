@@ -14,8 +14,8 @@ public class Library {
     private List<Reader> readers;
     private HashMap<String, Shelf> shelves;
 
-    public Library(String str) {
-        //todo
+    public Library(String name) {
+        this.name = name;
     }
     public Code addBook(Book book) {
         //todo

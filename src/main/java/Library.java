@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Library {
-    public static int LENDING_LIMIT;
+    public static int LENDING_LIMIT = 5;
 
     private HashMap<Book, Integer> books;
     private int libraryCard;

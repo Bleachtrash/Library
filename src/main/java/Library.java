@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Library {
     public static int LENDING_LIMIT = 5;
 
-    private HashMap<Book, Integer> books;
+    private HashMap<Book, Integer> books = new HashMap<>();
     private int libraryCard;
     private String name;
     private List<Reader> readers;
@@ -21,34 +21,34 @@ public class Library {
         this.name = name;
     }
     public Code addBook(Book book) {
-        //todo
+        return Code.SUCCESS;
     }
     private Code AddBookToShelf(Book book, Shelf shelf) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code addReader(Reader reader) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code addShelf(Shelf shelf) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code addShelf(String str) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code checkOutBook(Reader reader, Book book) {
-        //todo
+        return Code.SUCCESS;
     }
     public LocalDate convertDate(String str, Code code) {
-        //todo
+        return LocalDate.now();
     }
     public int convertInt(String recordCountString, Code code) {
-        //todo
+        return -1;
     }
-    private  Code errorCode(int) {
-        //todo
+    private  Code errorCode(int num) {
+        return Code.SUCCESS;
     }
     public Book getBookByISBN(String ISBN) {
-        //todo
+        return new Book("0", "p", "l", 1, "p", LocalDate.now());
     }
     public int getLibraryCardNumber() {
         return this.libraryCard;
@@ -57,13 +57,13 @@ public class Library {
         return this.name;
     }
     public Reader getReaderByCard(int cardNumber) {
-        //todo
+        return new Reader(1, "p", "1");
     }
     public Shelf getShelf(String str) {
-        //todo
+        return new Shelf();
     }
     public Shelf getShelf(Integer number) {
-        //todo
+        return new Shelf();
     }
     public Code init(String fileName) {
         File file = new File(fileName);
@@ -89,7 +89,8 @@ public class Library {
     private Code initBooks(int bookCount, Scanner sc) {
         for(int i = 0; i < bookCount; i++) {
             String[] fields = sc.nextLine().split(",");
-            Book book = new Book(fields[0], fields[1], fields[2], Integer.parseInt(fields[3]), fields[4], LocalDate.parse(fields[5]));
+
+            Book book = new Book(fields[0], fields[1], fields[2], Integer.parseInt(fields[3]), fields[4], LocalDate.now());
             if(!books.containsKey(book))
             {
                 books.put(book, 0);
@@ -100,10 +101,10 @@ public class Library {
         return Code.SUCCESS;
     }
     private Code initReader(int readerCount, Scanner sc) {
-        //todo
+        return Code.SUCCESS;
     }
     private Code initShelves(int shelfCount, Scanner sc) {
-        //todo
+        return Code.SUCCESS;
     }
     public int listBooks() {
         int totalBooks = 0;
@@ -114,25 +115,25 @@ public class Library {
         return totalBooks;
     }
     public int listReaders() {
-        //todo
+        return -1;
     }
     public int listReaders(boolean bool) {
-        //todo
+        return -1;
     }
     public int listShelves() {
-        //todo
+        return -1;
     }
     public int listShelves(boolean bool) {
-        //todo
+        return -1;
     }
     public Code removeReader(Reader reader) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code returnBook(Reader reader, Book book) {
-        //todo
+        return Code.SUCCESS;
     }
     public Code returnBook(Book book) {
-        //todo
+        return Code.SUCCESS;
     }
 
 }

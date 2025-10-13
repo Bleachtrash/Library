@@ -332,14 +332,16 @@ public class Library {
         for(int i = 0; i < readerCount; i++){
             String[] fields = sc.nextLine().split(",");
             int numberBooks = convertInt(fields[3], Code.BOOK_COUNT_ERROR);
+
             Reader reader = new Reader(convertInt(fields[0], Code.READER_CARD_NUMBER_ERROR), fields[1], fields[2]);
+
             for(int j = 0; j < numberBooks-1; j++){
                 Book book = getBookByISBN(fields[j*2 +3 +1]);
                 book.setDueDate(convertDate(fields[j*2 +3 +2], Code.DATE_CONVERSION_ERROR));
                 checkOutBook(reader, book);
             }
+            readers.add(reader);
         }
-
         return Code.SUCCESS;
     }
     private Code initShelves(int shelfCount, Scanner sc) {

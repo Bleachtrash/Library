@@ -3,6 +3,7 @@ import Utilities.Code;
 import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLSyntaxErrorException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -184,7 +185,6 @@ public class Library {
         return this.name;
     }
     public Reader getReaderByCard(int cardNumber) {
-        return new Reader(1, "p", "1");
     }
     public Shelf getShelf(String subject) {
         for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
@@ -307,10 +307,18 @@ public class Library {
         return totalBooks;
     }
     public int listReaders() {
-        return -1;
+        return listReaders(false);
     }
-    public int listReaders(boolean bool) {
-        return -1;
+    public int listReaders(boolean showBooks) {
+        int totalReaders = 0;
+        if(showBooks){
+            for(Reader reader : readers){
+                totalReaders ++;
+                System.out.println(reader.getName() + "(#" + reader.getCardNumber() + ") has the following books:");
+                System.out.println(reader.getBooks());
+            }
+        }
+        return totalReaders;
     }
     public int listShelves() {
         return listShelves(false);

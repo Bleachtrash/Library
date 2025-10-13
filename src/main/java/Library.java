@@ -87,6 +87,20 @@ public class Library {
         initBooks(count, sc);
         listBooks();
 
+        count = Integer.parseInt(sc.nextLine());
+        if(count < 0) {
+            return codeFromCount(count);
+        }
+        initShelves(count, sc);
+        listShelves();
+
+        count = Integer.parseInt(sc.nextLine());
+        if(count < 0) {
+            return codeFromCount(count);
+        }
+        initReader(count, sc);
+        listReaders();
+
         return Code.SUCCESS;
     }
     private Code initBooks(int bookCount, Scanner sc) {

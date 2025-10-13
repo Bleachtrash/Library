@@ -44,12 +44,14 @@ public class Library {
     public Code addReader(Reader reader) {
         return Code.SUCCESS;
     }
+    public Code addShelf(String subject) {
+        Shelf shelf = new Shelf();
+        shelf.setSubject(subject);
+        return addShelf(shelf);
+    }
     public Code addShelf(Shelf shelf) {
-        return Code.SUCCESS;
     }
-    public Code addShelf(String str) {
-        return Code.SUCCESS;
-    }
+
     public Code checkOutBook(Reader reader, Book book) {
         for(Reader r : readers){
             if(r.getBooks().size() > LENDING_LIMIT){
@@ -149,7 +151,13 @@ public class Library {
         return Code.SUCCESS;
     }
     public Book getBookByISBN(String ISBN) {
-        return new Book("0", "p", "l", 1, "p", LocalDate.of(1970, 1, 1));
+        for(Map.Entry<Book, Integer> entry : books){
+            if(entry.getKey().getISBN().equals(ISBN)){
+                return entry.getKey();
+            }
+        }
+        System.out.println("ERROR: could not find book with isbn " + ISBN);
+        return null;
     }
     public int getLibraryCardNumber() {
         return this.libraryCard;

@@ -39,8 +39,30 @@ public class Library {
     public LocalDate convertDate(String str, Code code) {
         return LocalDate.now();
     }
-    public int convertInt(String recordCountString, Code code) {
-        return -1;
+    public static int convertInt(String recordCountString, Code code) {
+        int res = 0;
+        try {
+            res = Integer.parseInt(recordCountString);
+        } catch(NumberFormatException e) {
+            System.out.println("Values which caused the error: " + recordCountString);
+
+            switch (code) {
+                case Code.BOOK_COUNT_ERROR:
+                    System.out.println("Error: Could not read the number of books");
+                    break;
+                case Code.PAGE_COUNT_ERROR:
+                    System.out.println("Error: Could not parse page count");
+                    break;
+                case Code.DATE_CONVERSION_ERROR:
+                    System.out.println("Error: Could not parse date component");
+                    break;
+                default:
+                    System.out.println("Error: Unknown conversion error");
+                    break;
+            }
+            return code.getCode();
+        }
+        return res;
     }
     private  Code errorCode(int num) {
         return Code.SUCCESS;

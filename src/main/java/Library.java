@@ -121,6 +121,13 @@ public class Library {
         return Code.SUCCESS;
     }
     private Code initShelves(int shelfCount, Scanner sc) {
+        for(int i = 0; i < shelfCount; i++)
+        {
+            String[] fields = sc.nextLine().split(",");
+
+            Shelf shelf = new Shelf(Integer.parseInt(fields[0]), fields[1]);
+            shelves.put(shelf.getSubject(), shelf);
+        }
         return Code.SUCCESS;
     }
     public int listBooks() {

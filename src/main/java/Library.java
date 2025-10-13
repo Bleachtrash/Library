@@ -185,6 +185,13 @@ public class Library {
         return this.name;
     }
     public Reader getReaderByCard(int cardNumber) {
+        for(Reader reader : readers){
+            if(reader.getCardNumber() == cardNumber){
+                return reader;
+            }
+        }
+        System.out.println("Could not find reader with card #" + cardNumber);
+        return null;
     }
     public Shelf getShelf(String subject) {
         for(Map.Entry<String, Shelf> entry : shelves.entrySet()){

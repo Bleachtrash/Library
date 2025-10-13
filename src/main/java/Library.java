@@ -279,7 +279,15 @@ public class Library {
         return removeBookCode;
     }
     public Code returnBook(Book book) {
-        return Code.SUCCESS;
-    }
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getKey().equals(book.getSubject())){
+                entry.getValue().addBook(book);
+                return Code.SUCCESS;
+            }
+        }
 
+        System.out.println("No shelf for " + book.getTitle());
+        return Code.SHELF_EXISTS_ERROR;
+
+    }
 }

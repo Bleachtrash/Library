@@ -51,7 +51,44 @@ public class Library {
         return Code.SUCCESS;
     }
     public Code checkOutBook(Reader reader, Book book) {
-        return Code.SUCCESS;
+        for(Reader r : readers){
+            if(r.getBooks().size() > LENDING_LIMIT){
+                System.out.printf("%s has reached the lending limit (%n)", reader.getName(), LENDING_LIMIT);
+                return Code.BOOK_LIMIT_REACHED_ERROR;
+            }
+            for(Map.Entry<Book, Integer> entry : books.entrySet()){
+                if(entry.getKey().equals(book)){
+                    for(Map.Entry<String, Shelf> s : shelves.entrySet()){
+                        if(s.getValue().getSubject().equals(book.getSubject())){
+                            if(s.getValue().getBooks().get(book) < 1){
+                                System.out.println("ERROR: no copies of " + book.getTitle() + " remain");
+                                return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+                            }
+                            Code addBookCode = reader.addBook(book);
+                            if(!addBookCode.equals(Code.SUCCESS)){
+                                System.out.println("Couldn't checkout " + book.getTitle());
+                                return addBookCode;
+                            }
+
+                            Code removeBook = s.getValue().removeBook(book);
+                            if(removeBook.equals(Code.SUCCESS)){
+                                System.out.println(book.getTitle() + " checked out successfully");
+                            }
+                            return removeBook;
+                        }
+                    }
+                    System.out.println("no shelf for subject " + book.getSubject());
+                    return Code.SHELF_EXISTS_ERROR;
+                }
+            }
+
+            System.out.println("ERROR: could not find " + book.getTitle());
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+
+        }
+
+        System.out.println(reader.getName() + " does not have an account here");
+        return Code.READER_NOT_IN_LIBRARY_ERROR;
     }
     public static LocalDate convertDate(String date, Code errorCode) {
         if(date.equals("0000")){

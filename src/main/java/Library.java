@@ -160,7 +160,7 @@ public class Library {
             if(fields.length < 6) {
                 return Code.BOOK_RECORD_COUNT_ERROR;
             }
-            Book book = new Book(fields[0], fields[1], fields[2], Integer.parseInt(fields[3]), fields[4], LocalDate.now());
+            Book book = new Book(fields[0], fields[1], fields[2], convertInt(fields[3], Code.PAGE_COUNT_ERROR), fields[4], convertDate(fields[5], Code.DATE_CONVERSION_ERROR));
             addBook(book);
         }
 

@@ -12,6 +12,11 @@ public class Shelf {
     private int shelfNumber;
     private String subject;
 
+    public Shelf(int shelfNumber, String subject) {
+        this.shelfNumber = shelfNumber;
+        this.subject = subject;
+    }
+
     public Code addBook(Book book) {
         if(!book.getSubject().equals(subject)) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;

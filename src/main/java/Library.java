@@ -65,6 +65,13 @@ public class Library {
     public Shelf getShelf(Integer number) {
         return new Shelf();
     }
+    Code codeFromCount(int count) {
+        for(Code code : Code.values()) {
+            if(code.getCode() == count)
+                return code;
+        }
+        return Code.UNKNOWN_ERROR;
+    }
     public Code init(String fileName) {
         File file = new File(fileName);
         Scanner sc;
@@ -75,12 +82,7 @@ public class Library {
         }
         int count = Integer.parseInt(sc.nextLine());
         if(count < 0) {
-            for(Code code : Code.values()){
-                if(code.getCode() == count) {
-                    return code;
-                }
-            }
-            return Code.UNKNOWN_ERROR;
+            return codeFromCount(count);
         }
         initBooks(count, sc);
         listBooks();

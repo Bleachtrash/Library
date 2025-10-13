@@ -256,7 +256,27 @@ public class Library {
         return Code.SUCCESS;
     }
     public Code returnBook(Reader reader, Book book) {
-        return Code.SUCCESS;
+        if(!reader.hasBook(book)){
+            System.out.println(reader.getName() + " doesn't have " + book.getTitle() + " checked out");
+            return Code.READER_DOESNT_HAVE_BOOK_ERROR;
+        }
+
+        boolean hasBook = false;
+        for(Map.Entry<Book, Integer> entry : books.entrySet()){
+            if(entry.getKey().equals(book))
+                hasBook = true;
+        }
+        if(!hasBook)
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+
+        System.out.println(reader.getName() + " is returning " + book.getTitle());
+        Code removeBookCode = reader.removeBook(book);
+        if(removeBookCode.equals(Code.SUCCESS)){
+            return returnBook(book);
+        }
+
+        System.out.println("Could not return " + book.getTitle());
+        return removeBookCode;
     }
     public Code returnBook(Book book) {
         return Code.SUCCESS;

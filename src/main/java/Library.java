@@ -245,21 +245,34 @@ public class Library {
         if(count < 0) {
             return codeFromCount(count);
         }
-        initBooks(count, sc);
+        Code initCode;
+        initCode = initBooks(count, sc);
+
+        if(!initCode.equals(Code.SUCCESS))
+            return initCode;
+
         listBooks();
 
         count = Integer.parseInt(sc.nextLine());
         if(count < 0) {
             return codeFromCount(count);
         }
-        initShelves(count, sc);
+        initCode = initShelves(count, sc);
+
+        if(!initCode.equals(Code.SUCCESS))
+            return initCode;
+
         listShelves();
 
         count = Integer.parseInt(sc.nextLine());
         if(count < 0) {
             return codeFromCount(count);
         }
-        initReader(count, sc);
+        initCode = initReader(count, sc);
+
+        if(!initCode.equals(Code.SUCCESS))
+            return initCode;
+
         listReaders();
 
         return Code.SUCCESS;
@@ -274,7 +287,7 @@ public class Library {
             if(fields.length < 6) {
                 return Code.BOOK_RECORD_COUNT_ERROR;
             }
-            if(convertInt(fields[4], Code.PAGE_COUNT_ERROR) <= 0)
+            if(convertInt(fields[3], Code.PAGE_COUNT_ERROR) <= 0)
                 return Code.PAGE_COUNT_ERROR;
             if(convertDate(fields[5], Code.DATE_CONVERSION_ERROR) == null)
                 return  Code.DATE_CONVERSION_ERROR;

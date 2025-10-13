@@ -17,6 +17,8 @@ public class Shelf {
         this.subject = subject;
     }
 
+    public Shelf(){};
+
     public Code addBook(Book book) {
         if(!book.getSubject().equals(subject)) {
             return Code.SHELF_SUBJECT_MISMATCH_ERROR;

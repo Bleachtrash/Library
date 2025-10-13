@@ -175,12 +175,21 @@ public class Library {
         return Code.SUCCESS;
     }
     private Code initShelves(int shelfCount, Scanner sc) {
+        if(shelfCount < 1)
+            return Code.SHELF_COUNT_ERROR;
         for(int i = 0; i < shelfCount; i++)
         {
             String[] fields = sc.nextLine().split(",");
+            if (fields.length != 2)
+                return Code.SHELF_COUNT_ERROR;
+            if(convertInt(fields[0], Code.SHELF_NUMBER_PARSE_ERROR) <= 0)
+                return Code.SHELF_NUMBER_PARSE_ERROR;
 
-            Shelf shelf = new Shelf(Integer.parseInt(fields[0]), fields[1]);
-            shelves.put(shelf.getSubject(), shelf);
+            addShelf(new Shelf(convertInt(fields[0], Code.SHELF_COUNT_ERROR), fields[1]));
+        }
+        if(shelves.size() != shelfCount){
+            System.out.println("Number of shelves doesn't match expected");
+            return Code.SHELF_COUNT_ERROR;
         }
         return Code.SUCCESS;
     }

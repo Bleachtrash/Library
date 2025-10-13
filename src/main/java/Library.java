@@ -160,6 +160,11 @@ public class Library {
             if(fields.length < 6) {
                 return Code.BOOK_RECORD_COUNT_ERROR;
             }
+            if(convertInt(fields[4], Code.PAGE_COUNT_ERROR) <= 0)
+                return Code.PAGE_COUNT_ERROR;
+            if(convertDate(fields[5], Code.DATE_CONVERSION_ERROR) == null)
+                return  Code.DATE_CONVERSION_ERROR;
+
             Book book = new Book(fields[0], fields[1], fields[2], convertInt(fields[3], Code.PAGE_COUNT_ERROR), fields[4], convertDate(fields[5], Code.DATE_CONVERSION_ERROR));
             addBook(book);
         }

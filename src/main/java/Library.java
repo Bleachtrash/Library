@@ -195,8 +195,14 @@ public class Library {
         System.out.println("No shelf for " + subject + " found");
         return null;
     }
-    public Shelf getShelf(Integer number) {
-        return new Shelf();
+    public Shelf getShelf(Integer shelfNumber) {
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getValue().getShelfNumber() == shelfNumber){
+                return entry.getValue();
+            }
+        }
+        System.out.println("No shelf number " + shelfNumber + " found");
+        return null;
     }
     Code codeFromCount(int count) {
         for(Code code : Code.values()) {

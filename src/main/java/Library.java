@@ -37,7 +37,8 @@ public class Library {
         System.out.println("No shelf for " + book.getSubject() + " books");
         return Code.SHELF_EXISTS_ERROR;
     }
-    private Code AddBookToShelf(Book book, Shelf shelf) {
+    @Deprecated
+    private Code addBookToShelf(Book book, Shelf shelf) {
         return Code.SUCCESS;
     }
     public Code addReader(Reader reader) {

@@ -50,6 +50,24 @@ public class Library {
         return addShelf(shelf);
     }
     public Code addShelf(Shelf shelf) {
+        int largestNumber = 0;
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getValue().equals(shelf)){
+                System.out.println("ERROR: shelf already exists");
+                return Code.SHELF_EXISTS_ERROR;
+            }
+            if(entry.getValue().getShelfNumber() > largestNumber)
+                largestNumber = entry.getValue().getShelfNumber();
+        }
+        shelf.setShelfNumber(largestNumber);
+        shelves.put(shelf.getSubject(), shelf);
+        for(Map.Entry<Book, Integer> entry : books.entrySet()){
+            if(entry.getKey().getSubject().equals(shelf.getSubject())){
+                shelf.addBook(entry.getKey());
+            }
+        }
+
+        return Code.SUCCESS;
     }
 
     public Code checkOutBook(Reader reader, Book book) {

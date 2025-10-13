@@ -1,12 +1,10 @@
 import Utilities.Code;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Library {
     public static int LENDING_LIMIT = 5;
@@ -14,8 +12,8 @@ public class Library {
     private HashMap<Book, Integer> books = new HashMap<>();
     private int libraryCard;
     private String name;
-    private List<Reader> readers;
-    private HashMap<String, Shelf> shelves;
+    private List<Reader> readers = new ArrayList<>();
+    private HashMap<String, Shelf> shelves = new HashMap<>();
 
     public Library(String name) {
         this.name = name;
@@ -145,10 +143,20 @@ public class Library {
         return -1;
     }
     public int listShelves() {
-        return -1;
+        return listShelves(false);
     }
-    public int listShelves(boolean bool) {
-        return -1;
+    public int listShelves(boolean showBooks) {
+        int numShelves = 0;
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()) {
+            numShelves ++;
+            if(showBooks) {
+                entry.getValue().listBooks();
+            }
+            else {
+                System.out.println(entry.getValue().toString());
+            }
+        }
+        return  numShelves;
     }
     public Code removeReader(Reader reader) {
         return Code.SUCCESS;

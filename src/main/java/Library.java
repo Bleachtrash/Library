@@ -102,15 +102,17 @@ public class Library {
         return Code.SUCCESS;
     }
     private Code initBooks(int bookCount, Scanner sc) {
+        if(bookCount < 1){
+            return Code.LIBRARY_ERROR;
+        }
+
         for(int i = 0; i < bookCount; i++) {
             String[] fields = sc.nextLine().split(",");
-
-            Book book = new Book(fields[0], fields[1], fields[2], Integer.parseInt(fields[3]), fields[4], LocalDate.now());
-            if(!books.containsKey(book))
-            {
-                books.put(book, 0);
+            if(fields.length < 6) {
+                return Code.BOOK_RECORD_COUNT_ERROR;
             }
-            books.put(book, books.get(book)+1);
+            Book book = new Book(fields[0], fields[1], fields[2], Integer.parseInt(fields[3]), fields[4], LocalDate.now());
+            addBook(book);
         }
 
         return Code.SUCCESS;

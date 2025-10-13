@@ -19,7 +19,23 @@ public class Library {
         this.name = name;
     }
     public Code addBook(Book book) {
-        return Code.SUCCESS;
+        if(books.containsKey(book)){
+            books.put(book, books.get(book)+1);
+            System.out.println(books.get(book) + " copies of " book.getTitle() + " in the stacks.");
+        }
+        else{
+            books.put(book, 1);
+            System.out.println(book.getTitle() + " added to the stacks.");
+        }
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getValue().getSubject().equals(book.getSubject())){
+                entry.getValue().addBook(book);
+                return Code.SUCCESS;
+            }
+        }
+
+        System.out.println("No shelf for " + book.getSubject() + " books");
+        return Code.SHELF_EXISTS_ERROR;
     }
     private Code AddBookToShelf(Book book, Shelf shelf) {
         return Code.SUCCESS;

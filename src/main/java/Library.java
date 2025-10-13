@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Library {
-    public static int LENDING_LIMIT = 5;
+    public static final int LENDING_LIMIT = 5;
 
     private HashMap<Book, Integer> books = new HashMap<>();
-    private int libraryCard;
+    private static int libraryCard;
     private String name;
     private List<Reader> readers = new ArrayList<>();
     private HashMap<String, Shelf> shelves = new HashMap<>();
@@ -22,7 +22,7 @@ public class Library {
     public Code addBook(Book book) {
         if(books.containsKey(book)){
             books.put(book, books.get(book)+1);
-            System.out.println(books.get(book) + " copies of " book.getTitle() + " in the stacks.");
+            System.out.println(books.get(book) + " copies of " + book.getTitle() + " in the stacks.");
         }
         else{
             books.put(book, 1);
@@ -185,7 +185,7 @@ public class Library {
         return Code.SUCCESS;
     }
     public Book getBookByISBN(String ISBN) {
-        for(Map.Entry<Book, Integer> entry : books){
+        for(Map.Entry<Book, Integer> entry : books.entrySet()){
             if(entry.getKey().getISBN().equals(ISBN)){
                 return entry.getKey();
             }
@@ -194,7 +194,7 @@ public class Library {
         return null;
     }
     public static int getLibraryCardNumber() {
-        return this.libraryCard + 1;
+        return libraryCard + 1;
     }
     public String getName() {
         return this.name;

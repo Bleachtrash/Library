@@ -43,6 +43,21 @@ public class Library {
         return Code.SUCCESS;
     }
     public Code addReader(Reader reader) {
+        for(Reader r : readers){
+            if(r.equals(reader)){
+                System.out.println(reader.getName() + " already has an account!");
+                return Code.READER_ALREADY_EXISTS_ERROR;
+            }
+            if(r.getCardNumber() == reader.getCardNumber()){
+                System.out.println(r.getName() + " and " + reader.getName() + " have the same card number!");
+                return Code.READER_CARD_NUMBER_ERROR;
+            }
+        }
+        readers.add(reader);
+        System.out.println(reader.getName() + " added to the library!");
+        if(reader.getCardNumber() > libraryCard){
+            libraryCard = reader.getCardNumber();
+        }
         return Code.SUCCESS;
     }
     public Code addShelf(String subject) {

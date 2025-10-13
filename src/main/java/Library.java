@@ -359,6 +359,16 @@ public class Library {
         return  numShelves;
     }
     public Code removeReader(Reader reader) {
+        if(!readers.contains(reader)){
+            System.out.println(reader.toString() + " is not a part of the library");
+            return Code.READER_NOT_IN_LIBRARY_ERROR;
+        }
+        if(reader.getBookCount() != 0){
+            System.out.println(reader.getName() + " must return all books!");
+            return Code.READER_STILL_HAS_BOOKS_ERROR;
+        }
+
+        readers.remove(reader);
         return Code.SUCCESS;
     }
     public Code returnBook(Reader reader, Book book) {

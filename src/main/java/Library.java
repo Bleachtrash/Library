@@ -73,17 +73,18 @@ public class Library {
         } catch (FileNotFoundException fnf) {
             return Code.FILE_NOT_FOUND_ERROR;
         }
-        int bookCount = Integer.parseInt(sc.nextLine());
-        if(bookCount < 0) {
+        int count = Integer.parseInt(sc.nextLine());
+        if(count < 0) {
             for(Code code : Code.values()){
-                if(code.getCode() == bookCount) {
+                if(code.getCode() == count) {
                     return code;
                 }
             }
             return Code.UNKNOWN_ERROR;
         }
-        initBooks(bookCount, sc);
+        initBooks(count, sc);
         listBooks();
+
         return Code.SUCCESS;
     }
     private Code initBooks(int bookCount, Scanner sc) {

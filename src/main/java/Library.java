@@ -86,45 +86,73 @@ public class Library {
         return Code.SUCCESS;
     }
 
-    public Code checkOutBook(Reader reader, Book book) {
-        for(Reader r : readers){
-            if(r.getBooks().size() > LENDING_LIMIT){
-                System.out.printf("%s has reached the lending limit (%n)", reader.getName(), LENDING_LIMIT);
-                return Code.BOOK_LIMIT_REACHED_ERROR;
+    public boolean hasBook(Book book){
+        for(Map.Entry<Book, Integer> entry : books.entrySet()){
+            if(entry.getKey().equals(book)){
+                return true;
             }
-            for(Map.Entry<Book, Integer> entry : books.entrySet()){
-                if(entry.getKey().equals(book)){
-                    for(Map.Entry<String, Shelf> s : shelves.entrySet()){
-                        if(s.getValue().getSubject().equals(book.getSubject())){
-                            if(s.getValue().getBooks().get(book) < 1){
-                                System.out.println("ERROR: no copies of " + book.getTitle() + " remain");
-                                return Code.BOOK_NOT_IN_INVENTORY_ERROR;
-                            }
-                            Code addBookCode = reader.addBook(book);
-                            if(!addBookCode.equals(Code.SUCCESS)){
-                                System.out.println("Couldn't checkout " + book.getTitle());
-                                return addBookCode;
-                            }
+        }
+        return false;
+    }
 
-                            Code removeBook = s.getValue().removeBook(book);
-                            if(removeBook.equals(Code.SUCCESS)){
-                                System.out.println(book.getTitle() + " checked out successfully");
-                            }
-                            return removeBook;
-                        }
-                    }
-                    System.out.println("no shelf for subject " + book.getSubject());
-                    return Code.SHELF_EXISTS_ERROR;
-                }
+    public boolean hasShelf(String subject){
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getKey().equals(subject)){
+                return true;
             }
-
-            System.out.println("ERROR: could not find " + book.getTitle());
-            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
-
         }
 
-        System.out.println(reader.getName() + " does not have an account here");
-        return Code.READER_NOT_IN_LIBRARY_ERROR;
+        return false;
+    }
+    public boolean hasShelf(Shelf shelf){
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getValue().equals(shelf)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Code checkOutBook(Reader reader, Book book) {
+        if(!readers.contains(reader)){
+            System.out.println(reader.getName() + " does not have an account here");
+            return Code.READER_NOT_IN_LIBRARY_ERROR;
+        }
+
+        if(reader.getBookCount() > LENDING_LIMIT){
+            System.out.println(reader.getName() + " has exceeded the lending limit, (" + LENDING_LIMIT +")");
+            return Code.BOOK_LIMIT_REACHED_ERROR;
+        }
+
+        if(!hasBook(book)){
+            System.out.println("ERROR: could not find book " + book.toString());
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+
+        if(!hasShelf(book.getSubject())){
+            System.out.println("no shelf for subject " + book.getSubject());
+            return Code.SHELF_EXISTS_ERROR;
+        }
+
+        if(getShelf(book.getSubject()).getBooks().get(book) < 1){
+            System.out.println("ERROR: no copies of " + book.toString() + " remain");
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+
+        Code addBook = reader.addBook(book);
+        if(!addBook.equals(Code.SUCCESS)){
+            System.out.println("Couldn't check out " + book.toString());
+            return addBook;
+        }
+
+        addBook = getShelf(book.getSubject()).removeBook(book);
+        if(addBook.equals(Code.SUCCESS)){
+            System.out.println(book.toString() + " checked out successfully");
+        }
+
+        return addBook;
+
     }
     public static LocalDate convertDate(String date, Code errorCode) {
         if(date.equals("0000")){
@@ -305,7 +333,7 @@ public class Library {
             String[] fields = sc.nextLine().split(",");
             int numberBooks = convertInt(fields[3], Code.BOOK_COUNT_ERROR);
             Reader reader = new Reader(convertInt(fields[0], Code.READER_CARD_NUMBER_ERROR), fields[1], fields[2]);
-            for(int j = 0; j < numberBooks; j++){
+            for(int j = 0; j < numberBooks-1; j++){
                 Book book = getBookByISBN(fields[j*2 +3 +1]);
                 book.setDueDate(convertDate(fields[j*2 +3 +2], Code.DATE_CONVERSION_ERROR));
                 checkOutBook(reader, book);

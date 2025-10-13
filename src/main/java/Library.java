@@ -36,8 +36,35 @@ public class Library {
     public Code checkOutBook(Reader reader, Book book) {
         return Code.SUCCESS;
     }
-    public LocalDate convertDate(String str, Code code) {
-        return LocalDate.now();
+    public static LocalDate convertDate(String date, Code errorCode) {
+        if(date.equals("0000")){
+            return LocalDate.of(1970, 1, 1);
+        }
+        String[] splitString = date.split("-");
+        if(splitString.length != 3)
+        {
+            System.out.println("ERROR: date conversion error, could not parse " + date);
+            System.out.println("Using default date 01-jan-1970");
+            return LocalDate.of(1970, 1, 1);
+        }
+        for(String str : splitString){
+            if(Integer.parseInt(str) < 0){
+                System.out.println("Error converting date: Year " + splitString[0]);
+                System.out.println("Error converting date: Month " + splitString[1]);
+                System.out.println("Error converting date: Day " + splitString[3]);
+                System.out.println("Using default date 01-jan-1970");
+                return LocalDate.of(1970, 1, 1);
+            }
+        }
+
+        LocalDate res = LocalDate.of(1970, 1, 1);
+        try {
+            res = LocalDate.parse(date);
+        } catch (NumberFormatException e){
+            convertInt(date, errorCode);
+        }
+
+        return res;
     }
     public static int convertInt(String recordCountString, Code code) {
         int res = 0;

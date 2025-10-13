@@ -193,8 +193,8 @@ public class Library {
         System.out.println("ERROR: could not find book with isbn " + ISBN);
         return null;
     }
-    public int getLibraryCardNumber() {
-        return this.libraryCard;
+    public static int getLibraryCardNumber() {
+        return this.libraryCard + 1;
     }
     public String getName() {
         return this.name;

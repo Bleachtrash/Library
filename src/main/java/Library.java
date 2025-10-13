@@ -186,8 +186,14 @@ public class Library {
     public Reader getReaderByCard(int cardNumber) {
         return new Reader(1, "p", "1");
     }
-    public Shelf getShelf(String str) {
-        return new Shelf();
+    public Shelf getShelf(String subject) {
+        for(Map.Entry<String, Shelf> entry : shelves.entrySet()){
+            if(entry.getKey().equals(subject)){
+                return entry.getValue();
+            }
+        }
+        System.out.println("No shelf for " + subject + " found");
+        return null;
     }
     public Shelf getShelf(Integer number) {
         return new Shelf();

@@ -95,7 +95,7 @@ public class Library {
         return Code.SUCCESS;
     }
     public Book getBookByISBN(String ISBN) {
-        return new Book("0", "p", "l", 1, "p", LocalDate.now());
+        return new Book("0", "p", "l", 1, "p", LocalDate.of(1970, 1, 1));
     }
     public int getLibraryCardNumber() {
         return this.libraryCard;
@@ -172,6 +172,19 @@ public class Library {
         return Code.SUCCESS;
     }
     private Code initReader(int readerCount, Scanner sc) {
+        if(readerCount < 1)
+            return Code.READER_COUNT_ERROR;
+        for(int i = 0; i < readerCount; i++){
+            String[] fields = sc.nextLine().split(",");
+            int numberBooks = convertInt(fields[3], Code.BOOK_COUNT_ERROR);
+            Reader reader = new Reader(convertInt(fields[0], Code.READER_CARD_NUMBER_ERROR), fields[1], fields[2]);
+            for(int j = 0; j < numberBooks; j++){
+                Book book = getBookByISBN(fields[j*2 +3 +1]);
+                book.setDueDate(convertDate(fields[j*2 +3 +2], Code.DATE_CONVERSION_ERROR));
+                checkOutBook(reader, book);
+            }
+        }
+
         return Code.SUCCESS;
     }
     private Code initShelves(int shelfCount, Scanner sc) {
